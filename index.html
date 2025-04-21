@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notion Widgets</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: transparent;
+        }
+        
+        /* Day Widget Styles */
+        .day-widget {
+            text-align: center;
+            width: 300px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%);
+        }
+        .day-name {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #5d6bf8;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
+        }
+        .current-date {
+            font-size: 18px;
+            color: #444;
+        }
+        .decoration {
+            font-size: 24px;
+            margin: 15px 0;
+        }
+        
+        /* Add styles for other widgets here */
+    </style>
+</head>
+<body>
+    <div id="widget-container"></div>
+
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const widgetType = urlParams.get('widget') || 'day'; // Default to day widget
+        
+        // Widget container reference
+        const container = document.getElementById('widget-container');
+        
+        // Load the requested widget
+        switch(widgetType) {
+            case 'day':
+                loadDayWidget();
+                break;
+            // Add cases for other widgets here
+            default:
+                container.innerHTML = '<p>Widget not found</p>';
+        }
+        
+        // Day of week widget implementation
+        function loadDayWidget() {
+            // Get widget-specific parameters
+            const decorSymbol = urlParams.get('decor') || '✨'; // Default decoration
+            const bgColor = urlParams.get('bg') || 'linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)'; // Default background
+            const textColor = urlParams.get('color') || '#5d6bf8'; // Default text color
+            
+            // Create widget HTML
+            const widget = document.createElement('div');
+            widget.className = 'day-widget';
+            widget.style.background = bgColor;
+            
+            // Generate widget content
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            
+            const now = new Date();
+            const dayName = days[now.getDay()];
+            const monthName = months[now.getMonth()];
+            const date = now.getDate();
+            const year = now.getFullYear();
+            
+            widget.innerHTML = `
+                <div class="decoration">${decorSymbol}${decorSymbol}${decorSymbol}</div>
+                <div class="day-name" style="color:${textColor}">${dayName}</div>
+                <div class="current-date">${monthName} ${date}, ${year}</div>
+                <div class="decoration">${decorSymbol}${decorSymbol}${decorSymbol}</div>
+            `;
+            
+            container.appendChild(widget);
+            
+            // Update the date every minute
+            setInterval(() => {
+                const newNow = new Date();
+                if (newNow.getDate() !== now.getDate()) {
+                    location.reload(); // Refresh if the day changed
+                }
+            }, 60000);
+        }
+        
+        // Add functions for other widgets here
+    </script>
+</body>
+</html>
