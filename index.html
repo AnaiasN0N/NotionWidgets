@@ -23,13 +23,13 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%);
+            background: linear-gradient(135deg, #F7E6CA 0%, #a1c4fd 100%);
         }
         .day-name {
             font-size: 42px;
             font-weight: bold;
             margin-bottom: 8px;
-            color: #5d6bf8;
+            color: #E35336;
             text-shadow: 1px 1px 2px rgba(255,255,255,0.7);
         }
         .current-date {
@@ -69,8 +69,8 @@
         function loadDayWidget() {
             // Get widget-specific parameters
             const decorSymbol = urlParams.get('decor') || '✨'; // Default decoration
-            const bgColor = urlParams.get('bg') || 'linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%)'; // Default background
-            const textColor = urlParams.get('color') || '#5d6bf8'; // Default text color
+            const bgColor = urlParams.get('bg') || 'linear-gradient(135deg, #F7E6CA 0%, #a1c4fd 100%)'; // Default background
+            const textColor = urlParams.get('color') || '#E35336'; // Default text color
             
             // Create widget HTML
             const widget = document.createElement('div');
